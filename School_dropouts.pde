@@ -5,8 +5,10 @@ PImage bg;
 void setup () {
   size(1280, 720);
   colorMode(HSB, 100);
+  
   loadData("cohorts_2007_4yraugust.csv");
   sortByLatLong();
+  
   bg = loadImage("Boroughs.png");
 }
 
@@ -35,11 +37,22 @@ void setDrawMode(int mode) {
 }
 
 void sortByLatLong() {
+  PrintWriter writer = createWriter("points.csv");
+  
   for(School s:schools) {
     //Tilemill String: -74.2817,40.4320,-73.6115,40.9672
-    s.tpos.x = map(s.lonLat.x, -74.2817, -73.6115, 0, 684); 
-    s.tpos.y = map(s.lonLat.y, 40.9672, 40.4320, 0, 720);
+    float xpos = map(s.lonLat.x, -74.2817, -73.6115, 0, 684); 
+    float ypos = map(s.lonLat.y, 40.9672, 40.4320, 0, 720);
+    
+    s.tpos.x = xpos;
+    s.tpos.y = ypos;
+    
+    writer.println(xpos + "," + ypos + "," + 0);
+    writer.println(xpos + "," + ypos + "," + s.dropoutPerc * 1000);
   }
+  
+  writer.flush();
+  writer.close();
 }
 
 
@@ -63,6 +76,7 @@ void loadData (String csv) {
     s.dropouts = t.getInt(i, "dropouts");
     s.lonLat.x = t.getFloat(i, "long");
     s.lonLat.y = t.getFloat(i, "lat");
+    s.calculate();
     schools.add(s);
   }
 }
