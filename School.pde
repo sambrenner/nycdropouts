@@ -14,6 +14,7 @@ class School {
   int local;
   int enrolled;
   int dropouts;
+  float dropoutPerc;
   float radius = 0;
   float tradius = 10;
   float hue = 0;
@@ -26,6 +27,10 @@ class School {
   Boolean showName = true;
   
   School() {
+  }
+  
+  void calculate() {
+    dropoutPerc = dropouts / (float)students; 
   }
   
   void update() {
@@ -60,7 +65,7 @@ class School {
     if(dist(mouseX, mouseY, pos.x, pos.y) < 5) {
       fill(0);
       textSize(10);
-      text(name,10,5);
+      text(name + " " + ceil(dropoutPerc * 100) + "% Dropouts",10,5);
     }
   }
   
@@ -75,8 +80,7 @@ class School {
   
   void drawDropouts() {
     stroke(0);
-    float dropoutPct = dropouts / (float)students; 
-    fill(map(dropoutPct, .3, 0, 0, 75), 100, 100); 
+    fill(map(dropoutPerc, .3, 0, 0, 75), 100, 100); 
     ellipse(0,0,4,4); 
   }
 }
