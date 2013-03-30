@@ -36,6 +36,7 @@ void setDrawMode(int mode) {
 
 void sortByLatLong() {
   for(School s:schools) {
+    //Tilemill String: -74.2817,40.9672,-73.6115,40.4320
     s.tpos.x = map(s.lonLat.x, -74.2817, -73.6115, 0, 684); 
     s.tpos.y = map(s.lonLat.y, 40.9672, 40.4320, 0, 720);
   }
