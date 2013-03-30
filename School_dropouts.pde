@@ -13,7 +13,7 @@ void setup () {
 void draw() {
   background(100);
   image(bg, 0, 0);
-  fill(100,80);
+  fill(100,75);
   rect(0,0,width,height);
   
   for(School s:schools) {
