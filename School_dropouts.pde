@@ -47,7 +47,6 @@ void sortByLatLong() {
     s.tpos.x = xpos;
     s.tpos.y = ypos;
     
-    writer.println(xpos + "," + ypos + "," + 0);
     writer.println(xpos + "," + ypos + "," + s.dropoutPerc * 1000);
   }
   
